@@ -7,10 +7,10 @@
 
 import time, threading
 # 假定这是你的银行存款
-balance = 0 # 定义了一个共享变量balance，初始值为0
+balance = 0 # 定义一个共享变量balance，初始值为0
 
 def change_it(n):
-    # 先存后去，结果应该为0
+    # 先存后去，理论上结果应该为0
     global balance
     balance = balance + n
     balance = balance - n
@@ -21,7 +21,9 @@ def run_thread(n):
 
 t1 = threading.Thread(target=run_thread, args=(5,))
 t2 = threading.Thread(target=run_thread, args=(8,))
-# 启动两个线程，先存后取，理论上结果应该为0，但是，由于线程的调度是由操作系统决定的，当t1、t2交替执行时，只要循环次数足够多，balance的结果就不一定是0了
+# 启动两个线程，先存后取，理论上结果应该为0，
+# 但是，由于线程的调度是由操作系统决定的，当t1、t2交替执行时，只要循环次数足够多，balance的结果就不一定是0了
+
 '''
 原因是因为高级语言的一条语句在CPU执行时是若干条语句，即使一个简单的计算：balance = balance + n
 这就分成了两步：

@@ -1,6 +1,11 @@
 # -*- coding:utf-8 -*-
 '''
+如果子进程还需要输入，则可以通过communicate()方法输入
 
+例子中的代码相当于在命令行执行命令nslookup，然后手动输入：
+set q=mx
+python.org
+exit
 '''
 import subprocess
 

@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 '''
-multiprocessing模块就是跨平台版本的多进程模块
+multiprocessing模块就是跨平台版本的多进程模块,可避免fork()只能在unix系统使用的情况
 '''
 import os
 from multiprocessing import Process

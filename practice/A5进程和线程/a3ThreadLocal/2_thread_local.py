@@ -5,12 +5,17 @@ ThreadLocal最常用的地方就是为每个线程绑定一个数据库连接，
 '''
 import threading
 
-# 创建全局ThreadLocal对象:全局变量local_school就是一个ThreadLocal对象，每个Thread对它都可以读写student属性，但互不影响
+# 创建全局ThreadLocal对象:
+# 全局变量local_school就是一个ThreadLocal对象，每个Thread对它都可以读写student属性，但互不影响
 local_school = threading.local()
+# 可以理解为全局变量local_school是一个dict，
+# 不但可以用local_school.student，还可以绑定其他变量，如local_school.teacher等
 
 def process_student():
     # 获取当前线程关联的student:
-    std = local_school.student # 每个属性如local_school.student都是线程的局部变量，可以任意读写而互不干扰，也不用管理锁的问题，ThreadLocal内部会处理
+    std = local_school.student
+    # 每个属性如local_school.student都是线程的局部变量，
+    # 可以任意读写而互不干扰，也不用管理锁的问题，ThreadLocal内部会处理
     print('Hello, %s (in %s)' % (std, threading.current_thread().name))
 
 def process_thread(name):
