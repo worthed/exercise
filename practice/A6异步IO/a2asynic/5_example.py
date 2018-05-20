@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 '''
-asyncio是python 3.4中新增的模块，它提供了一种机制，使得你可以用协程（coroutines）、IO复用（multiplexing I/O）在单线程环境中编写并发模型
+asyncio是python 3.4中新增的模块，它提供了一种机制，使得你可以用协程（coroutines）、
+IO复用（multiplexing I/O）在单线程环境中编写并发模型
 
 事件驱动模型
 

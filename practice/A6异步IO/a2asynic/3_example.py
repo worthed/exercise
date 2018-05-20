@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 '''
-
+我们用asyncio的异步网络连接来获取sina、sohu和163的网站首页
 '''
 import asyncio
 
