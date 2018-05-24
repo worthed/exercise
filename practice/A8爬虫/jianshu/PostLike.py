@@ -9,6 +9,7 @@ IDE：PyCharm
 import requests
 import re
 import time
+import random
 
 class PostLike(object):
     def __init__(self, get_no_page, get_no_cookie, #get_no_ifnonematch,
@@ -69,12 +70,10 @@ if __name__ == '__main__':
 
 
     get_no_page = open_file('get_no_page')
-    for page in get_no_page:
-        for i in range(1, 3):
-            time.sleep(i)
-        print(str(page)[2:14])
-
-
+    for page_original in get_no_page:
+        t = random.randint(1, 3)
+        time.sleep(t)
+        page = str(page_original)[2:14]
         postlike = PostLike(get_no_page=page,
                             get_no_cookie=open_file('get_no_cookie'),
                             #get_no_ifnonematch=open_file('get_no_ifnonematch'),
