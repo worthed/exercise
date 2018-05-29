@@ -6,5 +6,11 @@
 IDE：PyCharm
 描述：
 """
+def echo(n):
+    while True:
+        n = yield n
 
+g = echo(1)
+print(next(g))
+print(next(g))
 
