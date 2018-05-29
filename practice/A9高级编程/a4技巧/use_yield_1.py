@@ -64,9 +64,8 @@ def generate_square1(n):
         yield i * i
         i += 1
 result = generate_square1(10)
-print(list(result))
-
-# 在调用函数的时候就生成了所有元素，相比之下，更耗费内存和CPU
+print('eg4 : \n', list(result))
+# 未使用生成器
 def generate_square2(n):
     i = 0
     result = []
