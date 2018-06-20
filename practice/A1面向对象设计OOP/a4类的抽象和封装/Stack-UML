@@ -1,0 +1,13 @@
+# -*- coding:utf-8 -*-
+UML类图
+Stack 堆栈
+#数据域    - 表示私有数据域
+__elements: list  #存储栈中元素的列表
+
+Stack()  #构建一个空栈
+isEmpty(): bool  #如果栈为空则返回True
+peek(): object  #返回栈顶元素且并不将它从栈中删除
+
+push(): None  #将一个元素存储在栈顶
+pop(): object  #删除栈顶元素并返回它
+getSize(): int  #返回栈中元素个数

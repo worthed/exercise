@@ -43,20 +43,17 @@ class Loan:
 
 
 if __name__ == '__main__':
-    def main():
-        annualInterestRate = eval(input("输入年利率:"))
+    annualInterestRate = eval(input("输入年利率:"))
 
-        numberOfYears = eval(input("输入贷款年数:"))
+    numberOfYears = eval(input("输入贷款年数:"))
 
-        loanAmount = eval(input("输入贷款额:"))
+    loanAmount = eval(input("输入贷款额:"))
 
-        borrower = (input("输入贷款人:"))
+    borrower = (input("输入贷款人:"))
 
-        loan = Loan(annualInterestRate, numberOfYears, loanAmount, borrower)
+    loan = Loan(annualInterestRate, numberOfYears, loanAmount, borrower)
 
-        print("贷款是谁的:", loan.getBorrower())
-        print("每月应还:", format(loan.getMonthlyPayment(), ".2f"))
-        print("总计应还:", format(loan.getTotalPayment(), ".2f"))
+    print("贷款是谁的:", loan.getBorrower())
+    print("每月应还:", format(loan.getMonthlyPayment(), ".2f"))
+    print("总计应还:", format(loan.getTotalPayment(), ".2f"))
 
-
-    main()
