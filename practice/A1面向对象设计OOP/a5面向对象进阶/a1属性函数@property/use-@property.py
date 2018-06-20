@@ -14,5 +14,6 @@ class Student(object):
         self._score = value
 
 s = Student()
-s.score = 60 # OK，实际转化为s.set_score(60)
-s.score # OK，实际转化为s.get_score()
+s.score = 60 # 实际转化为s.set_score(60)
+s.score # 实际转化为s.get_score()
+print(s.score)

@@ -1,14 +1,14 @@
 # -*- coding:utf-8 -*-
 '''
-
+带有参数的装饰器
 '''
-#带有不定参数的装饰器
+
 import time
 
 def deco(func):
-    def wrapper(*args, **kwargs):
+    def wrapper(a,b):
         startTime = time.time()
-        func(*args, **kwargs)
+        func(a,b)
         endTime = time.time()
         msecs = (endTime - startTime)*1000
         print("time is %d ms" %msecs)
@@ -21,14 +21,6 @@ def func(a,b):
     time.sleep(1)
     print("result is %d" %(a+b))
 
-@deco
-def func2(a,b,c):
-    print("hello，here is a func for add :")
-    time.sleep(1)
-    print("result is %d" %(a+b+c))
-
-
 if __name__ == '__main__':
     f = func
-    func2(3,4,5)
     f(3,4)

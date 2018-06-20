@@ -13,7 +13,7 @@ def main():
 main()
 
 '''
-修改前
+错误示例：
 class A:
     def __init__(self, i):
         self.__i = i

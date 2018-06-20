@@ -43,3 +43,10 @@ add = wrapper(add)
 sub = wrapper(sub)
 print(sub(one, two))
 print(add(one, three))
+
+
+if __name__ == '__main__':
+    @wrapper
+    def add(a, b):
+        return Coordinate(a.x + b.x, a.y + b.y)
+    # @wrapper 等同于  add = wrapper(add)

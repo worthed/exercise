@@ -2,7 +2,6 @@
 '''
 私有数据域和方法可以在类内部被访问，但它们不能在类外被访问。为了让客户端访问数据域，就要提供一个get方法返回它的值。
 为了使数据域可以被更改，就要提供一个set方法去设置一个新值。
-通俗来讲，get方法是指获取器（或访问器），set方法是指设置器（或修改器）
 
 一个get方法有下面的方法头
 def getPropertyName(self):
@@ -27,3 +26,8 @@ class Circle:
     def getArea(self):
         return self.__radius * self.__radius * math.pi
 
+if __name__ == '__main__':
+    c = Circle(5)
+    c.getRadius()  # 私有域调用方法
+    print(c.getRadius())
+    # c.__radius #直接调用会报错 AttributeError: 'Circle' object has no attribute '__radius'

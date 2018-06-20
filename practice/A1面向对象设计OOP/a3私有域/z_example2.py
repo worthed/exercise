@@ -1,3 +1,4 @@
+
 # -*- coding:utf-8 -*-
 
 class A:
@@ -14,7 +15,7 @@ def main():
 main()
 
 '''
-修改前
+错误示例：
 class A:
     def __init__(self, on):
         self.__on = not on

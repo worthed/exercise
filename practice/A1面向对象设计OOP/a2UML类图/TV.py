@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 class TV:
-    #__init__初始化程序为TV对象中的数据域创建实例变量channel,volumelevel和on    数据域也被称为实例变量
     def __init__(self):
         self.channel = 1
         self.volumelevel = 1
@@ -48,3 +47,23 @@ class TV:
     def volumelevelDown(self):
         if self.on and self.volumelevel > 1:
             self.volumelevel -= 1
+
+
+if __name__ == '__main__':
+    def main():
+        tv1 = TV()
+        tv1.turnOn()
+        tv1.setChannel(30)
+        tv1.setVolumeLevel(3)
+
+        tv2 = TV()
+        tv2.turnOn()
+        tv2.channelUp()
+        tv2.channelUp()  # 频道加了两次，因TV.py中channel初始为1，故结果为3
+        tv2.volumelevelUp()  # 音量加了一次，因TV.py中volumelevel初始为1，故结果为2
+
+        print("tv1的频道是", tv1.getChannel(), ",tv1的音量是", tv1.getVolumeLevel())
+        print("tv2的频道是", tv2.getChannel(), ",tv2的音量是", tv2.getVolumeLevel())
+
+
+    main()
