@@ -1,0 +1,66 @@
+# !/usr/bin/python
+# -*- coding:utf-8 -*-
+"""
+作者：wangyuxiang
+创建时间：2018/7/5 下午4:19
+IDE：PyCharm
+描述：普通爬虫方式，单进程
+"""
+
+import time
+from urllib.request import urljoin
+from bs4 import BeautifulSoup
+import requests
+import re
+
+base_url = 'https://morvanzhou.github.io/'
+
+# 爬取网页
+def crawl(url):
+    response = requests.get(url)
+    response.encoding = 'utf-8'
+    # time.sleep(0.1)
+    return response.text
+
+# 解析网页
+def parse(html):
+    soup = BeautifulSoup(html, 'lxml')
+    urls = soup.find_all('a', {"href": re.compile('^/.+?/$')})
+    title = soup.find('h1').get_text().strip()
+    page_urls = set([urljoin(base_url, url['href']) for url in urls])   # 去重
+    url = soup.find('meta', {'property': "og:url"})['content']
+    return title, page_urls, url
+
+# 没爬过的网页
+unseen = set([base_url,])
+# 爬取过的网页
+seen = set()
+
+
+count, t1 = 1, time.time()
+
+if base_url != "http://127.0.0.1:4000/":
+    restricted_crawl = True
+else:
+    restricted_crawl = False
+
+while len(unseen) != 0:
+    if restricted_crawl and len(seen) >= 20:
+        break
+
+    print('\nNormal Crawling...')
+    htmls = [crawl(url) for url in unseen]
+
+    print('\nNormal Parsing...')
+    results = [parse(html) for html in htmls]
+
+    print('\nAnalysing...')
+    seen.update(unseen)         # seen the crawled
+    unseen.clear()              # nothing unseen
+
+    for title, page_urls, url in results:
+        print(count, title, url)
+        count += 1
+        unseen.update(page_urls - seen)
+
+print('Total time: %.1f s' % (time.time()-t1, ))
