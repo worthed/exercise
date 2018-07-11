@@ -6,7 +6,6 @@
 import os
 import requests
 from lxml import etree
-from time import time
 
 inputcalendar = input("{'Please input date(eg:2018-3-21):'}")
 calendartype = input("{'Please input calendartype(eg:入宅):'}")

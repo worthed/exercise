@@ -4,6 +4,7 @@
 '''
 import json
 import requests
+
 def searchPackage():
     # 输入运单号码。  eg：VB40641457651
     packageNum = input('请输入运单号码：')
