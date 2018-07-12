@@ -11,17 +11,25 @@ retry装饰器有个坑：装饰的函数必须为最上层函数write_to_excel�
 写excel有个坑：
 如果创建file和加sheet，如果在函数内，外部循环时，每次都会重新生成文件和sheet，
 最终只能得到最后依次循环的结果而保存
+
+dict_to_mysql有个坑：
+1、如果dict的values是None的话，会插入失败，因此需要把None替换为''
+2、有的爬出来，dict的values不是None，而是空格，不考虑此情况也会失败，因此需要去除空格
+3、数据库字段如果不是char、vchar字段的，会插入失败（目前还没有解决）
 """
 import requests
 from bs4 import BeautifulSoup
 import re
 import xlwt
-import time
 from retrying import retry
+from support.common.others.my_wrapper import retry_if_type_error
+from support.common.others.dict_to_mysql import dict_to_mysql,replace_dict_none
+from support.common.others.MysqlDataToJson import MysqlDataToJSON
+from support.common.connect_mysql.connect_mysql_and_query import localhost_query
 
-class SpiderLottery():
+class SpiderLottery(object):
 
-    def __init__(self,page,per_page_count,file,sheet):
+    def __init__(self,page,per_page_count,sheet):
         """
         参数值，page，per_page_count作为参数传入
         :param page: 第几页
@@ -32,7 +40,6 @@ class SpiderLottery():
         """
         self.page = page
         self.per_page_count = per_page_count
-        self.file = file
         self.sheet1 = sheet
 
     def get_one_page(self,url):
@@ -52,16 +59,6 @@ class SpiderLottery():
         if response.status_code == 200:
             return response.text
         return None
-
-
-    def retry_if_type_error(exception):
-        """
-        如果exception是TypeError那么就进行retry，如果不是就停止运行并抛出异常
-        :return: isinstance结果
-        """
-        print('重试中……')
-        time.sleep(10)
-        return isinstance(exception, TypeError)
 
 
     def parse_one_page(html):
@@ -105,7 +102,7 @@ class SpiderLottery():
         url = 'http://kaijiang.zhcw.com/zhcw/html/3d/list_{}.html'.format(str(self.page))
         html = SpiderLottery.get_one_page(self,url)
         print('正在保存第%d页……'% self.page)
-        # 写入每一期的信息
+        # 解析每一页
         # 带插入的行号 = （页数-1）* 每页的条数 + 1
         number = (self.page - 1) * self.per_page_count + 1
         items = SpiderLottery.parse_one_page(html)
@@ -122,15 +119,53 @@ class SpiderLottery():
             self.sheet1.write(number, 9, item['返奖比例'])
             number += 1
 
-def main():
+    @retry(retry_on_exception=retry_if_type_error)
+    def write_to_mysql(self):
+        """
+        写入到mysql
+        :return:
+        """
+        # 依次爬取每一页内容的每一期信息
+        url = 'http://kaijiang.zhcw.com/zhcw/html/3d/list_{}.html'.format(str(self.page))
+        html = SpiderLottery.get_one_page(self,url)
+        print('正在保存第%d页……'% self.page)
+        # 解析每一页
+        items = SpiderLottery.parse_one_page(html)
+
+        # 获取表名
+        sql = 'select COLUMN_NAME from information_schema.columns where table_name=\'lottery\' ' \
+              'and COLUMN_NAME not in (\'lottery_id\',\'lottery_return_update_at\');'
+        query_result = localhost_query(sql)
+        # sql查询结果转化为字典
+        sqldata_to_dict = MysqlDataToJSON(query_result=query_result)
+        # 获取转化后的dict
+        sqldata_to_dict.get_json()
+
+        # 遍历循环插入
+        for item in items:
+            # 替换None为''，带空格的值去掉空格
+            new_item = replace_dict_none(item)
+            dict_to_mysql(table_name='lottery',
+                          column_name_dict=sqldata_to_dict.get_json(),
+                          insert_data_dict=new_item)
+
+
+def write_to_mysql_main():
+    # 一共246页
+    for k in range(1, 247):
+        spider = SpiderLottery(page=k, per_page_count=20, sheet='')
+        spider.write_to_mysql()
+        #time.sleep(2)
+
+def write_to_excel_main():
     file = xlwt.Workbook()
     sheet1 = file.add_sheet('3D', cell_overwrite_ok=True)
     # 一共246页
     for k in range(1, 247):
-        spider = SpiderLottery(page=k, per_page_count=20, file=file, sheet=sheet1)
+        spider = SpiderLottery(page=k, per_page_count=20, sheet=sheet1)
         spider.write_to_excel()
-        time.sleep(2)
+        #time.sleep(2)
     file.save('3D.xls')
 
 if __name__ == '__main__':
-    main()
+    write_to_excel_main()
