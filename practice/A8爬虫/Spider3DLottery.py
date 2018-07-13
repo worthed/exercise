@@ -15,7 +15,8 @@ retry装饰器有个坑：装饰的函数必须为最上层函数write_to_excel�
 dict_to_mysql有个坑：
 1、如果dict的values是None的话，会插入失败，因此需要把None替换为''
 2、有的爬出来，dict的values不是None，而是空格，不考虑此情况也会失败，因此需要去除空格
-3、数据库字段如果不是char、vchar字段的，会插入失败（目前还没有解决）
+3、数据库字段如果不是char、vchar字段的，会插入失败，后优化把第一点的None替换为''，改为None替换为NULL
+4、数据库字段如果是 整型 NOT NULL DEFAULT '0'，会插入失败（目前还没有解决）
 """
 import requests
 from bs4 import BeautifulSoup
@@ -23,7 +24,7 @@ import re
 import xlwt
 from retrying import retry
 from support.common.others.my_wrapper import retry_if_type_error
-from support.common.others.dict_to_mysql import dict_to_mysql,replace_dict_none
+from support.common.others.dict_to_mysql import dict_to_mysql,replace_dict_none_to_null
 from support.common.others.MysqlDataToJson import MysqlDataToJSON
 from support.common.connect_mysql.connect_mysql_and_query import localhost_query
 
@@ -144,7 +145,7 @@ class SpiderLottery(object):
         # 遍历循环插入
         for item in items:
             # 替换None为''，带空格的值去掉空格
-            new_item = replace_dict_none(item)
+            new_item = replace_dict_none_to_null(item)
             dict_to_mysql(table_name='lottery',
                           column_name_dict=sqldata_to_dict.get_json(),
                           insert_data_dict=new_item)
