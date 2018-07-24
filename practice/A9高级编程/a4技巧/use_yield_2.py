@@ -55,6 +55,20 @@ after yield: first_send
 10、再次回到循环的开始，向下执行，打印出before yield程序运行结束
 '''
 
+'eg3----------'
+class Server:
 
+    services = [
+        {'active': False, 'protocol': 'ftp', 'port': 21},
+        {'active': True, 'protocol': 'ssh', 'port': 22},
+        {'active': True, 'protocol': 'http', 'port': 21},
+    ]
 
+    def __iter__(self):
 
+        for service in self.services:
+            if service['active']:
+                yield service['protocol'], service['port']
+s = Server()
+for i in s.__iter__():
+    print(i)
