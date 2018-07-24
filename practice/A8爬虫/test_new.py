@@ -8,7 +8,7 @@ IDE：PyCharm
 """
 from bs4 import BeautifulSoup
 import re
-from practice.common.MysqlDataToJson import MysqlDataToJSON
+from support.common.others.MysqlDataToDict import MysqlDataToDict
 from support.common.connect_mysql.connect_mysql_and_query import localhost_query,localhost_insert_or_update
 from practice.A8爬虫.Spider3DLottery import SpiderLottery
 from support.common.others.my_wrapper import retry_if_type_error
@@ -106,8 +106,8 @@ def write():
 sql = 'select COLUMN_NAME from information_schema.columns where table_name=\'lottery\' ' \
       'and COLUMN_NAME not in (\'lottery_id\',\'lottery_return_update_at\');'
 query_result = localhost_query(sql)
-sqldata_to_dict = MysqlDataToJSON(query_result=query_result)
-column_name_dict = sqldata_to_dict.get_json()
+sqldata_to_dict = MysqlDataToDict(query_result=query_result)
+column_name_dict = sqldata_to_dict.get_dict()
 
 kk = SpiderLotteryToMysql(column_name_dict='',page='',per_page_count='',sheet='')
 items = kk.get_page_res()
