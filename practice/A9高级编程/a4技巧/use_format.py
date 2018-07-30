@@ -5,7 +5,15 @@
 创建时间：2018/5/28 下午10:35
 IDE：PyCharm
 描述：
+
+3.6以上可以使用f-string方式
+aa, bb = 'hello', 'world'
+k = f'{aa} {bb}'
+print(k)
+
 """
+
+
 'eg1----------基本用法'
 "Hello {0}".format("Peppa Pig") # 引用第一个参数
 # 输出 'Hello Peppa Pig'
