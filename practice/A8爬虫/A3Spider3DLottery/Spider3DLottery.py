@@ -25,7 +25,7 @@ import xlwt
 from retrying import retry
 from support.common.others.my_wrapper import retry_if_type_error
 from support.common.others.dict_to_mysql import dict_to_mysql,replace_dict_none_to_null
-from support.common.others.MysqlDataToJson import MysqlDataToJSON
+from support.common.others.MysqlDataToDict import MysqlDataToDict
 from support.common.connect_mysql.connect_mysql_and_query import localhost_query
 
 class SpiderLottery(object):
@@ -138,16 +138,16 @@ class SpiderLottery(object):
               'and COLUMN_NAME not in (\'lottery_id\',\'lottery_return_update_at\');'
         query_result = localhost_query(sql)
         # sql查询结果转化为字典
-        sqldata_to_dict = MysqlDataToJSON(query_result=query_result)
+        sqldata_to_dict = MysqlDataToDict(query_result=query_result)
         # 获取转化后的dict
-        sqldata_to_dict.get_json()
+        sqldata_to_dict.get_dict()
 
         # 遍历循环插入
         for item in items:
-            # 替换None为''，带空格的值去掉空格
+            # 替换None为NULL，带空格的值去掉空格
             new_item = replace_dict_none_to_null(item)
             dict_to_mysql(table_name='lottery',
-                          column_name_dict=sqldata_to_dict.get_json(),
+                          column_name_dict=sqldata_to_dict.get_dict(),
                           insert_data_dict=new_item)
 
 
@@ -169,4 +169,4 @@ def write_to_excel_main():
     file.save('3D.xls')
 
 if __name__ == '__main__':
-    write_to_excel_main()
+    write_to_mysql_main()
