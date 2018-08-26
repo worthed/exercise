@@ -43,3 +43,4 @@ except OSError:
     log('OSerror')
 else:
     second_func()
+
