@@ -28,7 +28,7 @@ def read(q):
 if __name__ == '__main__':
     # 父进程创建Queue，并传给各个子进程
     q = Queue()
-    pw = Process(target=write, args=(q,))
+    pw = Process(target=write, args=(q,)) #表情args是可迭代的，后面可能会存在值
     pr = Process(target=read, args=(q,))
     # 启动子进程pw，写入:
     pw.start()
@@ -37,4 +37,6 @@ if __name__ == '__main__':
     # 等待pw结束:
     pw.join()
     # pr进程里是死循环，无法等待其结束，只能强行终止:
+    #res1 = q.get() # 获取quenu的返回值
+    #res2 = q.get() # 获取quenu的返回值
     pr.terminate()
