@@ -42,3 +42,20 @@ def main():
         print("已执行完！")
 
 main()
+
+'''
+try:
+    <statements>            # main action
+except <name1>:             # 当try中发生name1的异常时处理
+    <statements> 
+except (name2, name3):      # 当try中发生name2或name3中的某一个异常的时候处理
+    <statements>
+except <name4> as <data>:   # 当try中发生name4的异常时处理，并获取对应实例
+    <statements>
+except:                     # 其他异常发生时处理
+    <statements>
+else:                       # 没有异常发生时处理
+    <statements>
+finally:                    # 不管有没有异常发生都会处理
+    <statements>
+'''
