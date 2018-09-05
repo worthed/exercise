@@ -6,18 +6,11 @@
 IDE：PyCharm
 描述：
 """
-'-1-'
-# 字符串中本身的双引号需要转义
-string1 = "hello，my，\"god\" "
-# 字符串本身的双引号不需要转义
-string2 = 'hello, my "god" '
-sql1 = 'select * from asset where asset_create_at >= "2018-08-01" '
-
-'-2-三元操作符 C?X:Y'
+'-1-三元操作符 C?X:Y'
 X,Y = 0,-2
 print(X if X<Y else Y)
 
-'-3-if else'
+'-2-if else'
 # if else
 n = 1
 if n == 0:
@@ -36,8 +29,4 @@ def f(x):
 
 print(f(1))
 
-age = 7
-print(type(age))
 
-age_2 = '7'
-print(type(age_2))
