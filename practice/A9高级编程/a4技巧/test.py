@@ -30,3 +30,11 @@ def f(x):
 print(f(1))
 
 
+# print后面会默认换行，此时加上end参数，可以不需要
+print("use print end",end="")
+
+# help里可以是：模块、数据类型、函数或方法的名称
+help(print)
+dir(print)
+
+
