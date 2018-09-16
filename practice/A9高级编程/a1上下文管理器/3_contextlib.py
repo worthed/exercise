@@ -8,6 +8,7 @@ IDE：PyCharm
 """
 
 from contextlib import contextmanager
+import os
 
 @contextmanager
 def func():
@@ -24,4 +25,18 @@ with func():
     # raise(Exception("something wrong"))
 
 
+# 使用 with 处理加锁
+##不推荐
+import threading
+lock = threading.Lock()
+lock.acquire()
+try:
+    None
+finally:
+    lock.release()
 
+##推荐
+import threading
+lock = threading.Lock()
+with lock:
+    None
