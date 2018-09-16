@@ -22,6 +22,30 @@ for i2,e2 in myenumerate(li):
     print("index:", i2, "element:", e2)
 
 
+
+# 遍历列表以及索引
+items = 'zero one two three'.split()
+for i, item in enumerate(items):
+    print(i, item)
+
+# 遍历字典
 personinfo = {'name': 'joe', 'age':'20', 'hobby':'football'}
 for k, v in personinfo.items():
     print(k, v)
+
+
+##不推荐
+def condition(item):
+    None
+a_list = []
+found = False
+for item in a_list:
+    if condition(item):
+        found = True
+        break
+if found:
+    None
+
+##推荐
+if any(condition(item) for item in a_list):
+    None
