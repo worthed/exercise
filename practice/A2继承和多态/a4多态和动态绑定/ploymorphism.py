@@ -7,8 +7,8 @@
 C1是C2的子类，C2是C3的子类，以此类推，如果o调用一个方法p，那么python会依次在类C1，C2，C3中查找p的实现，直到找到为止。
 
 '''
-from practice.A2继承和多态.a1子类父类.son_Circle import Circle
-from practice.A2继承和多态.a1子类父类.son_Rectangle import Rectangle
+from practice.A2继承和多态 import Circle
+from practice.A2继承和多态 import Rectangle
 
 def main():
     c = Circle(4)

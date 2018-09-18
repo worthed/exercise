@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-from practice.A2继承和多态.a1子类父类.father_Geometric import GeometricObject
+from practice.A2继承和多态 import GeometricObject
 import math
 
 class Circle(GeometricObject):  #子类父类的继承

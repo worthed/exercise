@@ -12,11 +12,13 @@ IDE：PyCharm
 persons = [{'name': 'Jon', 'age': 32},
            {'name': 'Alan', 'age': 50},
            {'name': 'Bob', 'age': 23},]
-persons_sort = sorted(persons, key=lambda x: (x['name'], -x['age']))
+persons_sort = sorted(persons, reverse=True, key=lambda x: (x['name'], -x['age']))  # reverse降序
 print(persons_sort)
 
 '-1-对字典进行排序'
 phone_book = {'Linda':'7750', 'Bob':'9345', 'Carol':'5834'}
+# 对于集合，使用itemgetter更高效
+# 对于自定义类，使用attrgetter更高效
 from operator import itemgetter
 phone_book_sort = sorted(phone_book.items(),key=itemgetter(1))
 print(phone_book_sort)

@@ -3,8 +3,8 @@
 isinstance函数能够用来判断一个对象是否是一个类的实例
 '''
 
-from practice.A2继承和多态.a1子类父类.son_Circle import Circle
-from practice.A2继承和多态.a1子类父类.son_Rectangle import Rectangle
+from practice.A2继承和多态 import Circle
+from practice.A2继承和多态 import Rectangle
 
 def main():
     circle = Circle(4)
