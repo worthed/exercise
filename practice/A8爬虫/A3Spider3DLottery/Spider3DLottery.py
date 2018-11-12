@@ -19,14 +19,16 @@ dict_to_mysql有个坑：
 4、数据库字段如果是 整型 NOT NULL DEFAULT '0'，会插入失败（目前还没有解决）
 """
 import requests
+import time
 from bs4 import BeautifulSoup
 import re
 import xlwt
 from retrying import retry
-from support.common.others.my_wrapper import retry_if_type_error
-from support.common.others.dict_to_mysql import dict_to_mysql,replace_dict_none_to_null
-from support.common.others.MysqlDataToDict import MysqlDataToDict
-from support.common.connect_mysql.connect_mysql_and_query import localhost_query
+import random
+from support.common.support_utils.WrapperUtils import retry_if_type_error
+from support.common.support_utils.DictToMysql import dict_to_mysql,replace_dict_none_to_null
+from support.common.support_utils.MysqlToDict import MysqlDataToDict
+from support.common.connect.connect_db.ConnectDB import localhost_query
 
 class SpiderLottery(object):
 
@@ -140,32 +142,32 @@ class SpiderLottery(object):
         # sql查询结果转化为字典
         sqldata_to_dict = MysqlDataToDict(query_result=query_result)
         # 获取转化后的dict
-        sqldata_to_dict.get_dict()
+        sqldata_to_dict.getDict()
 
         # 遍历循环插入
         for item in items:
             # 替换None为NULL，带空格的值去掉空格
             new_item = replace_dict_none_to_null(item)
             dict_to_mysql(table_name='lottery',
-                          column_name_dict=sqldata_to_dict.get_dict(),
+                          column_name_dict=sqldata_to_dict.getDict(),
                           insert_data_dict=new_item)
 
 
 def write_to_mysql_main():
     # 一共246页
-    for k in range(1, 247):
+    for k in range(70, 252):
         spider = SpiderLottery(page=k, per_page_count=20, sheet='')
         spider.write_to_mysql()
-        #time.sleep(2)
+        time.sleep(random.randint(2,3))
 
 def write_to_excel_main():
     file = xlwt.Workbook()
     sheet1 = file.add_sheet('3D', cell_overwrite_ok=True)
     # 一共246页
-    for k in range(1, 247):
+    for k in range(70, 252):
         spider = SpiderLottery(page=k, per_page_count=20, sheet=sheet1)
         spider.write_to_excel()
-        #time.sleep(2)
+        time.sleep(2)
     file.save('3D.xls')
 
 if __name__ == '__main__':
