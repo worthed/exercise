@@ -4,7 +4,8 @@
 作者：wangyuxiang
 创建时间：2018/9/4 下午4:23
 IDE：PyCharm
-描述：假设有水果类Fruit，它用属性total表示总量，Fruit中已经有方法set()来设置总量，print_total()
+描述：
+假设有水果类Fruit，它用属性total表示总量，Fruit中已经有方法set()来设置总量，print_total()
 方法来打印水果数量。类Apple和类Orange继承自Fruit。需要跟踪不同类型的水果的总量。
 """
 # 方法一可用普通的实例方法实现。在Apple和Orange类中分别定义类变量total，然后再覆盖基类的set()

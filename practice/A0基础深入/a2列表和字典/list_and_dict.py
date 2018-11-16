@@ -38,3 +38,8 @@ from itertools import product
 for x, y, z in product(x_list, y_list, z_list):
     None
 
+
+# 把元组转换成一个字典
+l = (('Knights', 'Ni'), ('Monty', 'Python'), ('SPAM', 'SPAAAM'))
+d = dict(l)
+print(d)

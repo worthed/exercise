@@ -76,3 +76,5 @@ print(re.match('(\w\w\w)-(\d\d\d)', 'abc-123').group(2))
 print(re.match('(\w\w\w)-(\d\d\d)', 'abc-123').groups())
 
 
+asset_info = 'FQYMHZGLM1607070004-1*1_lateinterest'
+hh = re.match('(\w+)-(\d+|\w+)|(\w*)',asset_info).group()

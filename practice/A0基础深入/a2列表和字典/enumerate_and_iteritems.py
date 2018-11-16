@@ -34,7 +34,7 @@ for k, v in personinfo.items():
     print(k, v)
 
 
-##不推荐
+## 不推荐
 def condition(item):
     None
 a_list = []
@@ -46,6 +46,6 @@ for item in a_list:
 if found:
     None
 
-##推荐
+## 推荐
 if any(condition(item) for item in a_list):
     None
