@@ -5,6 +5,9 @@
 创建时间：2018/7/11 下午3:58
 IDE：PyCharm
 描述：获取代理
+优化成异步协程+多进程，放在云服务器上单独跑。
+各个进程分别负责抓取、去重、验证和生成可用ip队列。
+然后写一个接口从队列获取，用的时候直接调用接口就行。
 """
 import random
 import requests
@@ -120,6 +123,7 @@ def get_random_ip():
         collection.remove(useful_proxy)
         print('已经从MongoDB移除')
         get_random_ip()
+
 
 def main():
     ip_info = []
