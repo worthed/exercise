@@ -26,7 +26,7 @@ with open("../lagou/lagou_cookies", "rb") as openfile:
     lagou_cookies = openfile.readlines()[0]
 
 
-def get_lagou_headers(city,position,header_type='info'):
+def get_lagou_headers(city="",position="",header_type='info'):
     # 转化为url编码
     city_url_code = quote(city)
     position_url_code = quote(position)
@@ -81,10 +81,9 @@ def get_lagou_first_page_to_mysql(city,position,page_num=1):
     }
 
     # 随机获得一个ip
-    proxies = select_from_IPpool()
+    #proxies = select_from_IPpool()
 
-    response = requests.post(url, headers=headers,data=form_data,proxies=proxies,
-                             cookies=lagou_cookies)
+    response = requests.post(url, headers=headers,data=form_data)
     response.raise_for_status()
     response.encoding = 'utf-8'
     pages = response.json()
@@ -167,5 +166,5 @@ def get_lagou_positions_to_mysql(city,position):
 if __name__ == '__main__':
 
     city = '成都'
-    position = '测试'
+    position = '数据分析'
     get_lagou_positions_to_mysql(city,position)
