@@ -10,11 +10,15 @@ task2执行时，不管结果，开始执行task3
 """
 import asyncio
 import time
+def taskhh(t):
+    print('12321312')
+    time.sleep(2)
+
 
 async def task(t):
     print('任务开始', t)
     # await，执行，但不管结果
-    await asyncio.sleep(1)
+    await asyncio.coroutine(taskhh(1))
     print('任务耗时1秒钟')
 
 async def main(loop):
