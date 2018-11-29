@@ -4,7 +4,7 @@
 作者：wangyuxiang
 创建时间：2018/11/24 下午8:21
 IDE：PyCharm
-描述：
+描述：制作词云
 """
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
