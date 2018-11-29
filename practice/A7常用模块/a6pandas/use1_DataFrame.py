@@ -26,12 +26,14 @@ data4 = pd.DataFrame({'第一列':1.,
                       '第五列':pd.Categorical(['test','train','test','train']),
                       '第六列':'foo'})
 print(data4)
+'''基础属性'''
 # 打印每列的数组类型
 print(data4.dtypes)
 # 打印索引
 print(data4.index)
-# 列名
+# 列名 ( + 强制改列名）
 print(data4.columns)
+data4.columns=['A','B','C','D','E','F']
 # 每一行的value
 print(data4.values)
 # 描述dataframe数字的基本数学运算，如方差、平均等
@@ -40,10 +42,10 @@ print(data4.describe())
 print(data4.T)
 
 
-# 排序
+'''排序'''
 # 按照列名，ascending的True或者False决定正向还是逆向
 print(data4.sort_index(axis=1,ascending=False))
 # 按照index倒序
 print(data4.sort_index(axis=0,ascending=False))
 # values排序
-print(data4.sort_values(by='第五列'))
+print(data4.sort_values(by='E'))

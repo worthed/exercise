@@ -16,6 +16,7 @@ df = pd.DataFrame(np.arange(24).reshape((6,4)),index=dates,columns=['第一列',
 df.iloc[2,2] = 1111
 # 设置20180101，第二列的值为2222
 df.loc['20180101','第二列'] = 2222
+
 # 第一列大于8的全部列设置为0
 df[df.第一列 > 8] = 0
 # 同上，只改变第一列的数值
