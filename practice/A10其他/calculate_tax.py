@@ -51,11 +51,14 @@ def new_tax(salary):
     return tax
 
 if __name__ == "__main__":
+    '''
     if len(sys.argv) < 2:
         print("Usage: {} <salary>".format(sys.argv[0]))
         sys.exit(1)
 
     salary = float(sys.argv[1])
+    '''
+    salary = float(8999)
     old_tax = old_tax(salary)
     new_tax = new_tax(salary)
     print("old: {}, new: {}".format(old_tax, new_tax))

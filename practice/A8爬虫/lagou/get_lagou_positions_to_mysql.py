@@ -73,6 +73,7 @@ def get_lagou_first_page_to_mysql(city,position,page_num=1):
 
     headers = get_lagou_headers(city,position,header_type='position')
 
+    # post请求传参
     form_data = {
         'first': 'true',
         'pn': page_num,
@@ -82,7 +83,6 @@ def get_lagou_first_page_to_mysql(city,position,page_num=1):
 
     # 随机获得一个ip
     #proxies = select_from_IPpool()
-
     response = requests.post(url, headers=headers,data=form_data)
     response.raise_for_status()
     response.encoding = 'utf-8'
