@@ -10,25 +10,44 @@ from support.common.connect.connect_db.ConnectDB import DBinfo
 import pymysql
 import pandas as pd
 from pyecharts import Bar, Line
+from pyecharts import Bar,Line,Pie,Style,Scatter,Boxplot
 
-sql = "select jobs_lagou_position_positionType as 'positionType',jobs_lagou_position_companySize as 'companySize',jobs_lagou_position_education as 'education',count(1) as 'count' from jobs_lagou_info inner join jobs_lagou_position on jobs_lagou_position_positionId = jobs_lagou_info_positionId and jobs_lagou_position_positionName  not regexp '开发|性能|实习|主管|总监|经理|组长|挖掘|算法|DBA' group by jobs_lagou_position_positionType,jobs_lagou_position_companySize,jobs_lagou_position_education;"
-DBdict = DBinfo.DBDict
-lagou_position_datas = pd.read_sql(sql,con=pymysql.connect(**DBdict['local']))
+# 经验和薪资水平二维分析
+info_from_excel = pd.read_excel("/Users/wangyuxiang/Desktop/lagoudata.xlsx",header=0)
+years_sala = info_from_excel[['jobs_lagou_position_positionType','low','jobs_lagou_position_workYear']]
+years_sala.columns = ['positionType','low','workYear']
 
-analy_position = lagou_position_datas.loc[(lagou_position_datas['positionType']=='数据分析')].sort_values(by="companySize")
-test_position = lagou_position_datas.loc[(lagou_position_datas['positionType']=='测试')].sort_values(by="companySize")
+def assort_salary(str_01):
+    reg_str01 = "(\d+)"
+    res_01 = re.findall(reg_str01, str_01)
+    if len(res_01) == 2:
+        a0 = int(res_01[0])
+        b0 = int(res_01[1])
+    else :
+        a0 = int(res_01[0])
+        b0 = int(res_01[0])
+    return (a0+b0)/2
 
-analy_line = Line("公司规模与学历-数据分析")
-analy_line.add("本科", x_axis=analy_position.loc[(analy_position['education']=='本科')]["companySize"], y_axis=analy_position.loc[(analy_position['education']=='本科')]["count"],mark_line=["average"])
-#analy_line.add("大专", x_axis=analy_position.loc[(analy_position['education']=='大专')]["companySize"], y_axis=analy_position.loc[(analy_position['education']=='大专')]["count"],mark_line=["average"])
-#analy_line.add("不限", x_axis=analy_position.loc[(analy_position['education']=='不限')]["companySize"], y_axis=analy_position.loc[(analy_position['education']=='不限')]["count"],mark_line=["average"])
-analy_line
+test_datas = years_sala.loc[years_sala['positionType']=='测试']
+analy_datas = years_sala.loc[years_sala['positionType']=='数据分析']
 
-'''
-analy_test = Line("公司规模与学历-测试")
-analy_test.add("本科", x_axis=test_position.loc[(test_position['education']=='本科')]["companySize"], y_axis=test_position.loc[(test_position['education']=='本科')]["count"],mark_line=["average"])
-analy_test.add("大专", x_axis=test_position.loc[(test_position['education']=='大专')]["companySize"], y_axis=test_position.loc[(test_position['education']=='大专')]["count"],mark_line=["average"])
-analy_test.add("不限", x_axis=test_position.loc[(test_position['education']=='不限')]["companySize"], y_axis=test_position.loc[(test_position['education']=='不限')]["count"],mark_line=["average"])
-analy_test
-'''
 
+# group by 职位类别、公司规模、薪资下限
+
+
+Years = ['应届毕业生','不限','1-3年','3-5年','5-10年']
+print(analy_datas.loc[analy_datas['workYear']=='3-5年'])
+
+
+y_analy = []
+for j in Years:
+    analy_data = analy_datas.loc[analy_datas['workYear']==j]
+    if analy_data.empty == 1:
+        y_analy.append(pd.Series([1,2,3,4]))
+    else:
+        y_analy.append(analy_data['low'])
+
+boxplot = Boxplot("箱形图")
+#boxplot.add("测试", Years,boxplot.prepare_data(y_test))
+boxplot.add("数据分析", Years,boxplot.prepare_data(y_analy))
+boxplot.render()
