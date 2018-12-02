@@ -1,0 +1,35 @@
+CREATE TABLE `jobs_lagou_info` (
+  `jobs_lagou_info_id` int(20) NOT NULL AUTO_INCREMENT COMMENT '自增长ID',
+  `jobs_lagou_info_positionId` int(10) DEFAULT NULL COMMENT '关联ID',
+  `jobs_lagou_info_work_duty` text COMMENT '岗位职责',
+  `jobs_lagou_info_work_requirement` text COMMENT '岗位要求',
+  `jobs_lagou_position_updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`jobs_lagou_info_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1180 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `jobs_lagou_position` (
+  `jobs_lagou_position_id` int(20) NOT NULL AUTO_INCREMENT COMMENT '自增长ID',
+  `jobs_lagou_position_positionType` varchar(24) NOT NULL DEFAULT '' COMMENT '搜索内容',
+  `jobs_lagou_position_positionId` int(10) NOT NULL COMMENT '职位ID',
+  `jobs_lagou_position_positionName` varchar(48) NOT NULL DEFAULT '' COMMENT '职位名称',
+  `jobs_lagou_position_firstType` varchar(24) DEFAULT '' COMMENT '职位类别',
+  `jobs_lagou_position_positionLables` varchar(255) DEFAULT '' COMMENT '职位属性',
+  `jobs_lagou_position_salary` varchar(12) DEFAULT '' COMMENT '薪水',
+  `jobs_lagou_position_workYear` varchar(12) DEFAULT '' COMMENT '工作年限',
+  `jobs_lagou_position_education` varchar(12) DEFAULT '' COMMENT '学历',
+  `jobs_lagou_position_jobNature` varchar(12) DEFAULT '' COMMENT '职位状态',
+  `jobs_lagou_position_positionAdvantage` varchar(255) DEFAULT '' COMMENT '职位福利',
+  `jobs_lagou_position_companyId` int(10) NOT NULL COMMENT '公司ID',
+  `jobs_lagou_position_companyFullName` varchar(48) NOT NULL DEFAULT '' COMMENT '公司全称',
+  `jobs_lagou_position_companyShortName` varchar(24) DEFAULT '' COMMENT '公司简称',
+  `jobs_lagou_position_companySize` varchar(48) DEFAULT '' COMMENT '公司人数大小',
+  `jobs_lagou_position_financeStage` varchar(12) DEFAULT '' COMMENT '融资情况',
+  `jobs_lagou_position_industryField` varchar(12) DEFAULT '' COMMENT '所属行业',
+  `jobs_lagou_position_companyLabelList` varchar(255) DEFAULT '' COMMENT '公司福利',
+  `jobs_lagou_position_city` varchar(12) DEFAULT '' COMMENT '城市',
+  `jobs_lagou_position_district` varchar(12) DEFAULT '' COMMENT '地区',
+  `jobs_lagou_position_createTime` datetime DEFAULT '1000-01-01 00:00:00' COMMENT '职位创建时间',
+  `jobs_lagou_position_updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`jobs_lagou_position_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=931 DEFAULT CHARSET=utf8;
