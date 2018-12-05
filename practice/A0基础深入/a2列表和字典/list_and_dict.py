@@ -43,3 +43,6 @@ for x, y, z in product(x_list, y_list, z_list):
 l = (('Knights', 'Ni'), ('Monty', 'Python'), ('SPAM', 'SPAAAM'))
 d = dict(l)
 print(d)
+
+# str转字典
+# eval()
