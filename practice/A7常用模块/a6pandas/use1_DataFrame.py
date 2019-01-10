@@ -49,3 +49,14 @@ print(data4.sort_index(axis=1,ascending=False))
 print(data4.sort_index(axis=0,ascending=False))
 # values排序
 print(data4.sort_values(by='E'))
+
+'''遍历'''
+for index, row in data4.iterrows():
+     print(row['E'])
+'''
+# 生成器转化 遍历处理数据后重新生成Dataframe
+key_value = libraryA_df.values
+key = (i[0][1:] for i in key_value)
+value = (i[1] for i in key_value)
+libraryB_df = pd.DataFrame({'key':list(key),'value':list(value)})
+'''

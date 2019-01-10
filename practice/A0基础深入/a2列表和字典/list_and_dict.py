@@ -46,3 +46,4 @@ print(d)
 
 # str转字典
 # eval()
+# json.loads(str) 可将json的null替换为python能识别的None
