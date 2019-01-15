@@ -38,7 +38,6 @@ apple2 = Apple()
 
 orange1 = Orange()
 orange1.set(300)
-
 orange2 = Orange()
 
 apple1.print_total()

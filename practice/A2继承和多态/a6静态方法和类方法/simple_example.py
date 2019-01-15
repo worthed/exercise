@@ -11,11 +11,11 @@ class A(object):
     def instance_method(self,x):
         print("calling instance method instance_method{0}{1}".format(self,x))
 
-    @classmethod
+    @classmethod # 类方法
     def class_method(cls,x):
         print("calling class_method{0}{1}".format(cls,x))
 
-    @staticmethod
+    @staticmethod # 静态方法
     def static_method(x):
         print("calling static_method{0}".format(x))
 
