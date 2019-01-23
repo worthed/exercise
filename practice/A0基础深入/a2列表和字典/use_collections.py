@@ -4,7 +4,8 @@
 作者：wangyuxiang
 创建时间：2018/10/28 下午8:29
 IDE：PyCharm
-描述：使用python的collections模块替代内建容器类型
+描述：
+使用python的collections模块替代内建容器类型
 deque：增强功能的类似list类型
 (列表是基于数组实现的，而deque是基于双链表的，所以后者在中间or前面插入元素，或者删除元素都会快很多)
 defaultdict：类似dict类型
@@ -13,7 +14,7 @@ namedtuple：类似tuple类型
 """
 
 from collections import defaultdict
-data = [('yellow', 1), ('blue', 2), ('yellow', 3), ('blue', 4), ('red', 1)]
+#data = [('yellow', 1), ('blue', 2), ('yellow', 3), ('blue', 4), ('red', 1)]
 
 # use  setdefault
 result1 = {}

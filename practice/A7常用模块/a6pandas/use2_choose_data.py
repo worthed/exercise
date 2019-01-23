@@ -30,6 +30,8 @@ print(df['20180103':'20180105'])
 '''通过列名选择列'''
 # 打印某一列
 print(df['第一列'])
+# 选择某两列
+#print(df[['key','value_x_x','value_y_x']])
 
 
 '''loc，使用column名和index名进行定位'''

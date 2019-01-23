@@ -12,6 +12,7 @@ df = pd.DataFrame([[1,2,2],[1,4,5],[1,2,4],[1,6,3],[2,3,1],[2,4,1],[2,3,5],[3,1,
                   columns=['A','B','C'])
 
 gp = df.groupby(by=['A','B'])
+# gp = df.groupby(by=['key'],as_index=False).count()  这样处理，转换后的仍为Dataframe
 
 print(gp.size())
 # 由gp.size()得到的是可以mulitiindex Series，转化成DataFrame的结构
